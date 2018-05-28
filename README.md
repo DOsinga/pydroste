@@ -22,3 +22,14 @@ And it should create a zooming in movie:
 
 ![Beach Movie](beach.gif)
 
+Beside the input and output parameters, the important flags are
+`center` and `scale`. `Center`` determines the point in the input picture
+to zoom in on. `Scale`` is the scale of the sub-image compared to the main
+image. In other words, this is how far you need to zoom in to have the
+main image be replaced by the sub-image completely and which would
+complete one loop.
+
+The two other flags you can pass are `frames`, which determines how
+many frames the output image will have and `fps`, which determines
+how many frames per seconds the output movie will play with.
+

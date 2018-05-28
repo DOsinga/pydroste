@@ -25,7 +25,7 @@ def zoom_at(org_img, zoom, scale, x, y):
     return img
 
 
-def main(input_fn, output_fn, center, *, scale=125, frames=90, fps=30):
+def main(input_fn, output_fn, center, scale=125, *, frames=90, fps=30):
     center_x, center_y = map(int, center.split(','))
     log_scale = math.log(scale)
     img = Image.open(input_fn)
@@ -47,4 +47,5 @@ if __name__ == '__main__':
 
     args = parser.parse_args()
 
-    main(args.input, args.output, args.center)
+    main(args.input, args.output, args.center, args.scale,
+         frames=args.frames, fps=args.fps)

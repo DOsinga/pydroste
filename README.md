@@ -14,9 +14,11 @@ execute in a shell:
 You can now run the main script:
 
     python pydroste.py --input=beach.jpg \
-                       --output=beach.gif \
+                       --output=beach.mp4 \
                        --center=1904,1940 \
-                       --scale=125 \
-                       --output_width=640
+                       --scale=125
 
-And it should create a self-repeating animated gif:
+And it should create a zooming in movie:
+
+![Beach Movie](beach.gif)
+

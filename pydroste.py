@@ -33,6 +33,9 @@ def main(input_fn, output_fn, center, scale=125, *, frames=90, fps=30):
         for frame in tqdm.tqdm(range(frames)):
             zoom = math.exp(log_scale * frame / frames)
             zoomed = zoom_at(img, zoom, scale, center_x, center_y)
+            if frame == 0:
+                # frame in frame:
+                img = zoomed
             writer.append_data(np.array(zoomed))
 
 

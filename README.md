@@ -33,3 +33,10 @@ The two other flags you can pass are `frames`, which determines how
 many frames the output image will have and `fps`, which determines
 how many frames per seconds the output movie will play with.
 
+The `pydroste_multiple.py` script can render loops with multiple zoom
+points. The basic pattern is the same, except that a parameter `zoom_points`
+needs to be supplied that contains a list of `;` separated tuples
+specifying the various zoom point as `center_x,center_y,scale`
+
+![Manhattanhenge](manhattanhenge.gif)
+

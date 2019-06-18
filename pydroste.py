@@ -1,12 +1,11 @@
 #!/usr/bin/env python
-import argparse
 import math
 
+import argument
 import imageio
 import numpy as np
-from PIL import Image
 import tqdm
-import argument
+from PIL import Image
 
 
 def zoom_at(org_img, zoom, scale, x, y):
@@ -31,9 +30,9 @@ def main(*,
          input: str = 'beach.jpg',
          output: str = 'beach.mp4',
          center: str = '1904,1940',
-         scale : float =125,
-         frames : int = 90,
-         fps : float = 30):
+         scale: float = 125,
+         frames: int = 90,
+         fps: float = 30):
     """Create a Droste type of movie from a still by zooming in and replacing part of it by itself."""
     center_x, center_y = map(int, center.split(','))
     log_scale = math.log(scale)

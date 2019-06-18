@@ -2,6 +2,7 @@
 import argparse
 import math
 
+import argument
 import imageio
 import numpy as np
 from PIL import Image
@@ -25,10 +26,17 @@ def zoom_at(org_img, zoom, scale, x, y):
     return img
 
 
-def main(input_fn, output_fn, zoom_points, *, frames=90, fps=30):
+@argument.entrypoint
+def main(*,
+         input: str = 'Manhattanhenge.png',
+         output: str = 'manhattanhenge.mp4',
+         zoom_points: str = '665,1440,27.8;1410,1395,35;380,1295,65;1193,1460,35;108,1320,41.6;1230,1322,76',
+         frames : int = 75,
+         fps : float = 30):
+    """Create a Droste type of movie from a still by zooming in and replacing part of it by itself."""
     zoom_points = [[*map(float, zoom_point.split(','))] for zoom_point in zoom_points.split(';')]
-    base_img = Image.open(input_fn)
-    with imageio.get_writer(output_fn, mode='I', fps=fps) as writer:
+    base_img = Image.open(input)
+    with imageio.get_writer(output, mode='I', fps=fps) as writer:
         for idx, (center_x, center_y, scale) in enumerate(zoom_points):
             log_scale = math.log(scale)
             next_idx = (idx + 1) % len(zoom_points)
@@ -41,19 +49,4 @@ def main(input_fn, output_fn, zoom_points, *, frames=90, fps=30):
 
 
 if __name__ == '__main__':
-    parser = argparse.ArgumentParser()
-    parser.add_argument('--input', type=str, default='Manhattanhenge.png')
-    parser.add_argument('--output', type=str, default='manhattanhenge.mp4')
-    parser.add_argument('--zoom_points', type=str, default='665,1440,27.8;'
-                                                           '1410,1395,35;'
-                                                           '380,1295,65;'
-                                                           '1193,1460,35;'
-                                                           '108,1320,41.6;'
-                                                           '1230,1322,76')
-    parser.add_argument('--frames', type=float, default=75)
-    parser.add_argument('--fps', type=float, default=30)
-
-    args = parser.parse_args()
-
-    main(args.input, args.output, args.zoom_points,
-         frames=args.frames, fps=args.fps)
+    main()

@@ -6,6 +6,7 @@ import imageio
 import numpy as np
 from PIL import Image
 import tqdm
+import argument
 
 
 def zoom_at(org_img, zoom, scale, x, y):
@@ -25,11 +26,19 @@ def zoom_at(org_img, zoom, scale, x, y):
     return img
 
 
-def main(input_fn, output_fn, center, scale=125, *, frames=90, fps=30):
+@argument.entrypoint
+def main(*,
+         input: str = 'beach.jpg',
+         output: str = 'beach.mp4',
+         center: str = '1904,1940',
+         scale : float =125,
+         frames : int = 90,
+         fps : float = 30):
+    """Create a Droste type of movie from a still by zooming in and replacing part of it by itself."""
     center_x, center_y = map(int, center.split(','))
     log_scale = math.log(scale)
-    img = Image.open(input_fn)
-    with imageio.get_writer(output_fn, mode='I', fps=fps) as writer:
+    img = Image.open(input)
+    with imageio.get_writer(output, mode='I', fps=fps) as writer:
         for frame in tqdm.tqdm(range(frames)):
             zoom = math.exp(log_scale * frame / frames)
             zoomed = zoom_at(img, zoom, scale, center_x, center_y)
@@ -40,15 +49,4 @@ def main(input_fn, output_fn, center, scale=125, *, frames=90, fps=30):
 
 
 if __name__ == '__main__':
-    parser = argparse.ArgumentParser()
-    parser.add_argument('--input', type=str, default='beach.jpg')
-    parser.add_argument('--output', type=str, default='beach.mp4')
-    parser.add_argument('--center', type=str, default='1904,1940')
-    parser.add_argument('--scale', type=float, default=125)
-    parser.add_argument('--frames', type=float, default=90)
-    parser.add_argument('--fps', type=float, default=30)
-
-    args = parser.parse_args()
-
-    main(args.input, args.output, args.center, args.scale,
-         frames=args.frames, fps=args.fps)
+    main()

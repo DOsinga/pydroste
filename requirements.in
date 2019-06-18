@@ -1,3 +1,6 @@
 imageio
+imageio-ffmpeg
 Pillow
 tqdm
+argument-clinic
+pip-tools

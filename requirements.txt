@@ -5,12 +5,24 @@
 #    pip-compile
 #
 argument-clinic==0.12
-click==7.0                # via pip-tools
-docstring-parser==0.3     # via argument-clinic
-imageio-ffmpeg==0.3.0
+    # via -r requirements.in
+click==7.0
+    # via pip-tools
+docstring-parser==0.3
+    # via argument-clinic
 imageio==2.5.0
-numpy==1.16.4             # via imageio
-pillow==6.0.0
+    # via -r requirements.in
+imageio-ffmpeg==0.3.0
+    # via -r requirements.in
+numpy==1.16.4
+    # via imageio
+pillow==9.0.0
+    # via
+    #   -r requirements.in
+    #   imageio
 pip-tools==3.8.0
-six==1.12.0               # via pip-tools
+    # via -r requirements.in
+six==1.12.0
+    # via pip-tools
 tqdm==4.32.1
+    # via -r requirements.in

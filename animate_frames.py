@@ -23,29 +23,21 @@ def zoom_at(org_img, zoom, x, y):
 @argument.entrypoint
 def main(*,
          frame_count: int = 38,
-         output: str = 'dalle.mp4',
+         target: str = 'dalle',
          frames: int = 40,
          fps: float = 30):
     log_scale = math.log(1.82)
-#    img1 = Image.open('dalle/frame1.png')
-#    img2 = Image.open('dalle/frame2.png')
-#    zoom = zoom_at(img2, 1.82, 512 + 64, 512 + 66)
-#    zoom = zoom.crop((512, 0, 1024, 1024))
-#    img1.paste(zoom, (512, 0))
-#    img1.save("test.png")
-#    return
-    with imageio.get_writer(output, mode='I', fps=fps) as writer:
+    with imageio.get_writer(target + ".mp4", mode='I', fps=fps) as writer:
         for i in range(frame_count, 0, -1):
-            img = Image.open('dalle/frame' + str(i) + ".png")
+            img = Image.open(target + '/frame' + str(i) + ".png")
             w, h = img.size
-            #img = img.crop((16, 16, w - 32, h - 32))
-            #img = img.resize((1024, 1024))
             for frame in tqdm.tqdm(range(frames)):
+                if i == 1 and frame == frames // 2:
+                    break
                 zoom = math.exp(log_scale * frame / (frames))
                 zoomed = zoom_at(img, zoom, w // 2 + 64, h // 2 + 64)
                 w, h = zoomed.size
                 zoomed = zoomed.crop((16, 16, w - 32, h - 32))
-                #zoomed = zoom_at(img, zoom, w // 2, h // 2)
                 writer.append_data(np.array(zoomed))
 
 

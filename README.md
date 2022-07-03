@@ -1,6 +1,7 @@
 # PyDroste
 
-Small python project to generate movies with a droste effect.
+Small python project to generate movies with a droste effect or to create
+zoomable movies using DALLE
 
 ## Installation
 
@@ -40,3 +41,26 @@ specifying the various zoom point as `center_x,center_y,scale`
 
 ![Manhattanhenge](manhattanhenge.gif)
 
+## DALLE use
+
+This repository also contains some scripts that can be used to create
+zoomable movies using DALLE.
+
+Put your images say in the vangogh directory, create a first frame
+and put it in the say vangogh directory. You can then use:
+
+    python zoom_transparent.py \
+        --input=vangogh/frame1.png \
+        --output=vangogh/zoomed.png
+
+To create a zoomed out version of frame1. Use that as a basis for your
+next image and repeat this until you have a longish list of zoomed
+out frames. You can put them together into a movie using:
+
+
+    python animate_frames.py \
+        --frame_count=6 --frames=60 \
+        --input_dir=vangogh
+
+This will produce a movie with 6 frames and with 60 frames per step
+valled vangogh.mp4 in the root directory.

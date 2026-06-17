@@ -31,12 +31,10 @@ pip-tools==6.8.0
 pyparsing==3.0.9
     # via packaging
 tomli==2.0.1
-    # via
-    #   build
-    #   pep517
+    # via pep517
 tqdm==4.64.0
     # via -r requirements.in
-wheel==0.37.1
+wheel==0.38.1
     # via pip-tools
 
 # The following packages are considered to be unsafe in a requirements file:
